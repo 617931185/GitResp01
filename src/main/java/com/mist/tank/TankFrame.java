@@ -16,11 +16,27 @@ public class TankFrame extends Frame {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("key pressed");
+                int key = e.getKeyCode();
+                switch (key){
+                    case KeyEvent.VK_LEFT:
+                        x-=10;
+                        break;
+                    case KeyEvent.VK_UP:
+                        y-=10;
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        x+=10;
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        y+=10;
+                        break;
+                    default:
+                        break;
+                }
             }
             @Override
             public void keyReleased(KeyEvent e) {
-                System.out.println("key released");
+
             }
         });
         this.addWindowListener(new WindowAdapter() {
@@ -34,7 +50,8 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g){
         g.fillRect(x,y,50,50);
-        x+=10;
-        y+=10;
+//        x+=10;
+//        y+=10;
+
     }
 }
