@@ -14,31 +14,60 @@ public class TankFrame extends Frame {
         this.setTitle("tank war");
         this.setVisible(true);
         this.addKeyListener(new KeyAdapter() {
+            boolean bl=false;
+            boolean bu=false;
+            boolean br=false;
+            boolean bd=false;
             @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
                 switch (key){
                     case KeyEvent.VK_LEFT:
-                        x-=10;
+                        bl=true;
                         break;
                     case KeyEvent.VK_UP:
-                        y-=10;
+                        bu=true;
                         break;
                     case KeyEvent.VK_RIGHT:
-                        x+=10;
+                        br=true;
                         break;
                     case KeyEvent.VK_DOWN:
-                        y+=10;
+                        bd=true;
                         break;
                     default:
                         break;
                 }
+                if(bl)x-=10;
+                if(br)x+=10;
+                if(bu)y-=10;
+                if(bd)y+=10;
             }
             @Override
             public void keyReleased(KeyEvent e) {
-
+                int key = e.getKeyCode();
+                switch (key){
+                    case KeyEvent.VK_LEFT:
+                        bl=false;
+                        break;
+                    case KeyEvent.VK_UP:
+                        bu=false;
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        br=false;
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        bd=false;
+                        break;
+                    default:
+                        break;
+                }
+                if(bl)x-=10;
+                if(br)x+=10;
+                if(bu)y-=10;
+                if(bd)y+=10;
             }
         });
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -50,8 +79,5 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g){
         g.fillRect(x,y,50,50);
-//        x+=10;
-//        y+=10;
-
     }
 }
