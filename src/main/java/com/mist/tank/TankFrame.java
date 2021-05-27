@@ -1,13 +1,15 @@
 package com.mist.tank;
+import sun.jvm.hotspot.ui.DeadlockDetectionPanel;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 public class TankFrame extends Frame {
     int x=200,y=200;
+    Dir dir = Dir.DOWN;
+    final static int SPEED = 10;
     public TankFrame(){
         this.setSize(800,600);
         this.setResizable(false);
@@ -37,10 +39,7 @@ public class TankFrame extends Frame {
                     default:
                         break;
                 }
-                if(bl)x-=10;
-                if(br)x+=10;
-                if(bu)y-=10;
-                if(bd)y+=10;
+                setMainTankDir();
             }
             @Override
             public void keyReleased(KeyEvent e) {
@@ -61,10 +60,13 @@ public class TankFrame extends Frame {
                     default:
                         break;
                 }
-                if(bl)x-=10;
-                if(br)x+=10;
-                if(bu)y-=10;
-                if(bd)y+=10;
+                setMainTankDir();
+            }
+            private void setMainTankDir() {
+                if(bl)dir=Dir.LEFT;
+                if(bu)dir=Dir.UP;
+                if(br)dir=Dir.RIGHT;
+                if(bd)dir=Dir.DOWN;
             }
         });
 
@@ -79,5 +81,13 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g){
         g.fillRect(x,y,50,50);
+        switch (dir){
+            case UP:y-=SPEED;break;
+            case DOWN:y+=SPEED;break;
+            case LEFT:x-=SPEED;break;
+            case RIGHT:x+=SPEED;break;
+            default:break;
+        }
     }
+
 }
