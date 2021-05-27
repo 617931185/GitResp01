@@ -7,9 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
-    int x=200,y=200;
-    Dir dir = Dir.DOWN;
-    final static int SPEED = 10;
+    Tank myTank = new Tank(200,200,Dir.DOWN);
     public TankFrame(){
         this.setSize(800,600);
         this.setResizable(false);
@@ -63,10 +61,10 @@ public class TankFrame extends Frame {
                 setMainTankDir();
             }
             private void setMainTankDir() {
-                if(bl)dir=Dir.LEFT;
-                if(bu)dir=Dir.UP;
-                if(br)dir=Dir.RIGHT;
-                if(bd)dir=Dir.DOWN;
+                if(bl)myTank.setDir(Dir.LEFT);
+                if(bu)myTank.setDir(Dir.UP);
+                if(br)myTank.setDir(Dir.RIGHT);
+                if(bd)myTank.setDir(Dir.DOWN);
             }
         });
 
@@ -80,12 +78,14 @@ public class TankFrame extends Frame {
     //传入一支画笔，绘制窗口，每次需要重新绘制就会被调用
     @Override
     public void paint(Graphics g){
+        int x=myTank.getX();
+        int y=myTank.getY();
         g.fillRect(x,y,50,50);
-        switch (dir){
-            case UP:y-=SPEED;break;
-            case DOWN:y+=SPEED;break;
-            case LEFT:x-=SPEED;break;
-            case RIGHT:x+=SPEED;break;
+        switch (myTank.getDir()){
+            case UP:myTank.setY(y-10);break;
+            case DOWN:myTank.setY(y+10);break;
+            case LEFT:myTank.setX(x-10);break;
+            case RIGHT:myTank.setX(x+10);break;
             default:break;
         }
     }
