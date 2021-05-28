@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200,200,Dir.DOWN);
+    Tank myTank = new Tank(200,200);
     public TankFrame(){
         this.setSize(800,600);
         this.setResizable(false);
@@ -61,10 +61,14 @@ public class TankFrame extends Frame {
                 setTankDir(myTank);
             }
             private void setTankDir(Tank tank) {
-                if(bl)tank.setDir(Dir.LEFT);
-                if(bu)tank.setDir(Dir.UP);
-                if(br)tank.setDir(Dir.RIGHT);
-                if(bd)tank.setDir(Dir.DOWN);
+                if(!bl&&!br&&!bu&&!bd)myTank.setMoving(false);
+                else {
+                    if (bl) tank.setDir(Dir.LEFT);
+                    if (bu) tank.setDir(Dir.UP);
+                    if (br) tank.setDir(Dir.RIGHT);
+                    if (bd) tank.setDir(Dir.DOWN);
+                    myTank.setMoving(true);
+                }
             }
         });
 
