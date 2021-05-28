@@ -1,5 +1,4 @@
 package com.mist.tank;
-import sun.jvm.hotspot.ui.DeadlockDetectionPanel;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -7,7 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200,200);
+    Tank myTank = new Tank(200,200, Dir.DOWN);
+    Bullet b = new Bullet(300,300, Dir.DOWN);
     public TankFrame(){
         this.setSize(800,600);
         this.setResizable(false);
@@ -83,7 +83,7 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g){
         myTank.paint(g);
-
+        b.paint(g);
     }
 
 }
