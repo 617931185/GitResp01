@@ -1,5 +1,7 @@
 package com.mist.tank;
 
+import java.awt.*;
+
 public class Tank {
     private int x,y;
     private Dir dir;
@@ -33,5 +35,25 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    public void paint(Graphics g) {
+        g.fillRect(x,y,50,50);
+        switch (getDir()) {
+            case UP:
+                y -= 10;
+                break;
+            case DOWN:
+                y += 10;
+                break;
+            case LEFT:
+                x -= 10;
+                break;
+            case RIGHT:
+                x += 10;
+                break;
+            default:
+                break;
+        }
     }
 }
