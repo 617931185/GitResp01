@@ -42,7 +42,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         Color c = g.getColor();
-        g.setColor(Color.BLACK);
+        g.setColor(Color.YELLOW);
         g.fillRect(x,y,WIDTH,HEIGHT);
         g.setColor(c);
         move();
