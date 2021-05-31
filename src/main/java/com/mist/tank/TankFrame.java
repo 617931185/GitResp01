@@ -7,10 +7,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 200, Dir.DOWN, this);
+    Tank myTank = new Tank(200, 400, Dir.DOWN, this, Group.GOOD,false,null,5);
     List<Bullet> bullets = new ArrayList<>();
+    List<Tank> tanks = new ArrayList<>();
     private static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
 
     public static int getGameWidth() {
@@ -57,10 +59,21 @@ public class TankFrame extends Frame {
         Color c = g.getColor();
         g.setColor(Color.WHITE);
         g.setColor(c);
-        g.drawString("子弹的数量"+bullets.size(),10,60);
+        g.drawString("子弹的数量:\t"+bullets.size(),10,50);
+        g.drawString("敌方坦克的数量:\t"+(tanks.size()-1),10,70);
         myTank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
+        }
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
+        }
+
+        for (int i = 0; i < bullets.size(); i++) {
+            for (int j = 0; j < tanks.size(); j++) {
+                if(bullets.get(i).getGroup()!=tanks.get(j).getGroup())
+                bullets.get(i).collideWith(tanks.get(j));
+            }
         }
     }
 
@@ -112,7 +125,7 @@ public class TankFrame extends Frame {
                     bd = false;
                     break;
                 case KeyEvent.VK_ALT:
-                    myTank.fire();
+                    myTank.fire(Group.GOOD);
                     break;
                 default:
                     break;
