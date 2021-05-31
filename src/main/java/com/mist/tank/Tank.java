@@ -1,19 +1,22 @@
 package com.mist.tank;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Tank {
     private int x,y;
     private Dir dir;
-    private static final int SPEED = 5;
-    private static final int WIDTH = 50;
-    private static final int HEIGHT = 50;
+    private static final int SPEED = 5,WIDTH = 50,HEIGHT = 50;
     private boolean moving = false;
+    private TankFrame tf = null;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public int getX() {
@@ -41,10 +44,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.YELLOW);
-        g.fillRect(x,y,WIDTH,HEIGHT);
-        g.setColor(c);
+        g.drawImage(ResourceMgr.tankL,x,y,null);
         move();
     }
 
@@ -74,5 +74,9 @@ public class Tank {
             default:
                 break;
         }
+    }
+
+    public void fire() {
+        tf.bullets.add(new Bullet(x,y,dir,this.tf));
     }
 }
